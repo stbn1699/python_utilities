@@ -9,7 +9,7 @@ RPC.update(
     state="Grand Theft Auto VI - Campagne solo",
     details="GTA VI - Campagne solo",
     start=time.time(),
-    large_image="gta.jpg",  # Le nom exact de l'image uploadée (expliqué ci-dessous)
+    large_image="gta.jpg",
     large_text="Grand Theft Auto VI"
 )
 
