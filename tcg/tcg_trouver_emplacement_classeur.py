@@ -7,7 +7,7 @@ def trouver_page_et_emplacement(numero_carte):
 	page = (numero_carte - 1) // 9 + 1
 	position = (numero_carte - 1) % 9 + 1
 	vraie_page = math.ceil(page / 2)
-	face = "recto" if page % 2 == 0 else "verso"
+	face = "verso" if page % 2 == 0 else "recto"
 
 	return page, position, vraie_page, face
 
