@@ -15,6 +15,8 @@ TITRE = ""
 
 NOMBRE_ISSUES = 0
 
+NUMERO_IMAGE_COUVERTURE = 1
+
 CHEMIN_PARENT = r""
 
 SUPERHERO = ""
@@ -249,6 +251,31 @@ def creer_note_issue(
         issue: int,
         nombre_images: int,
 ) -> None:
+    dossier_issue = dossier_comic / "images" / f"issue {issue}"
+
+    numero_couverture = NUMERO_IMAGE_COUVERTURE
+
+    fichiers_couverture = list(
+        dossier_issue.glob(
+            f"image-{numero_couverture:03d}.*"
+        )
+    )
+
+    if fichiers_couverture:
+        chemin_couverture = fichiers_couverture[0]
+        couverture = (
+            f"images/issue {issue}/"
+            f"{chemin_couverture.name}"
+        )
+    else:
+        print(
+            f"Attention : image de couverture "
+            f"{numero_couverture:03d} introuvable pour "
+            f"l'issue {issue}.",
+            file=sys.stderr,
+        )
+        couverture = ""
+
     lignes = [
         "---",
         "type: comic",
@@ -258,7 +285,7 @@ def creer_note_issue(
         f"issue: {issue}",
         f"release_date: {RELEASE_DATE}",
         f"read: {str(READ).lower()}",
-        f"cover: images/issue {issue}/image-002.webp",
+        f"cover: {couverture}",
         "tags:",
         "  - comics",
         "  - marvel",
@@ -269,13 +296,17 @@ def creer_note_issue(
         "",
     ]
 
-    # Les liens sont générés pour les images 002 à 024.
-    # Si une page contient un autre nombre d'images,
-    # les liens inexistants resteront simplement vides dans Obsidian.
-    lignes.extend(
-        f"![[images/issue {issue}/image-{numero:03d}.webp]]"
-        for numero in range(2, nombre_images+1)
-    )
+    for numero in range(2, nombre_images + 1):
+        fichiers_image = list(
+            dossier_issue.glob(f"image-{numero:03d}.*")
+        )
+
+        if not fichiers_image:
+            continue
+
+        lignes.append(
+            f"![[images/issue {issue}/{fichiers_image[0].name}]]"
+        )
 
     nom_fichier = f"{TITRE} - Issue {issue}.md"
     chemin_fichier = dossier_comic / nom_fichier
