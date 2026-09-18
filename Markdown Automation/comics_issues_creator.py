@@ -31,7 +31,10 @@ READ = False
 # La première URL correspond à l'issue 1,
 # la deuxième à l'issue 2, etc.
 URLS_ISSUES = [
-
+    "https://readfreecomicsonline.com/spider-man-wolverine-issue-1-2003/",
+    "https://readfreecomicsonline.com/spider-man-wolverine-issue-2-2003/",
+    "https://readfreecomicsonline.com/spider-man-wolverine-issue-3-2003/",
+    "https://readfreecomicsonline.com/spider-man-wolverine-issue-4-2003/",
 ]
 
 # Sélecteur CSS des images à récupérer.
